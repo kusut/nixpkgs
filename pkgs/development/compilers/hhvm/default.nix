@@ -2,31 +2,27 @@
 , libevent, gd, curl, libxml2, icu, flex, bison, openssl, zlib, php, re2c
 , expat, libcap, oniguruma, libdwarf, libmcrypt, tbb, gperftools, glog
 , bzip2, openldap, readline, libelf, uwimap, binutils, cyrus_sasl, pam, libpng
-, libxslt, ocaml, freetype, gdb
+, libxslt, ocaml, freetype, gdb, gmp, imagemagick, gperf
 }:
 
 stdenv.mkDerivation rec {
   name    = "hhvm-${version}";
-  version = "3.3.0";
+  version = "3.9.1";
 
   # use git version since we need submodules
   src = fetchgit {
     url    = "https://github.com/facebook/hhvm.git";
-    rev    = "e0c98e21167b425dddf1fc9efe78c9f7a36db268";
-    sha256 = "0s32v713xgf4iim1zb9sg08sg1r1fs49czar3jxajsi0dwc0lkj9";
+    rev    = "0f72cfc2f0a01fdfeb72fbcfeb247b72998a66db";
+    sha256 = "0iij9fmzq5s4ap26887w9qgmnlqdn4g614m6fv3a5y1cp6p20laa";
     fetchSubmodules = true;
   };
 
-  patches = [
-    ./3918a2ccceb98230ff517601ad60aa6bee36e2c4.patch
-    ./8207a31c26cc42fee79363a14c4a8f4fcbfffe63.patch
-  ];
 
   buildInputs =
-    [ cmake pkgconfig boost libunwind mariadb libmemcached pcre gdb
+    [ cmake pkgconfig boost libunwind mariadb libmemcached pcre gdb imagemagick
       libevent gd curl libxml2 icu flex bison openssl zlib php expat libcap
       oniguruma libdwarf libmcrypt tbb gperftools bzip2 openldap readline
-      libelf uwimap binutils cyrus_sasl pam glog libpng libxslt ocaml
+      libelf uwimap binutils cyrus_sasl pam glog libpng libxslt ocaml gmp gperf
     ];
 
   enableParallelBuilding = true;
